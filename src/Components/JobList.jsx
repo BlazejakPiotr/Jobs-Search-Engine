@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-export default function JobList({ query }) {
+export default function JobList({ data }) {
   return (
     <ul>
-      {query.data.map((job) => (
+      {data.data.map((job) => (
         <li key={job._id}>
           <h6>{job.title}</h6>
           <p>

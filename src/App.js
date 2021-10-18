@@ -7,7 +7,7 @@ import JobList from "./Components/JobList";
 import CompanyDetail from "./Components/CompanyDetail";
 
 function App() {
-  const [query, setQuery] = useState({ data: [] });
+  const [data, setData] = useState({ data: [] });
 
   return (
     <div className="App">
@@ -20,11 +20,13 @@ function App() {
               </Link>
             </Col>
           </Row>
-          <Row>
-            <Searchbar setQuery={setQuery} />
+          <Row className="justify-content-center">
+            <Col xs={9}>
+              <Searchbar setData={setData} />
+            </Col>
           </Row>
           <Row>
-            <Route path="/" exact render={() => <JobList query={query} />} />
+            <Route path="/" exact render={() => <JobList data={data} />} />
             <Route
               path="/company-detail/:company"
               exact
