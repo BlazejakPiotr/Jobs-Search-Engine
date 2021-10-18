@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Searchbar from "./Components/Searchbar";
@@ -5,6 +7,8 @@ import JobList from "./Components/JobList";
 import CompanyDetail from "./Components/CompanyDetail";
 
 function App() {
+  const [query, setQuery] = useState([]);
+
   return (
     <div className="App">
       <Router>
@@ -17,10 +21,10 @@ function App() {
             </Col>
           </Row>
           <Row>
-            <Searchbar />
+            <Searchbar setQuery={setQuery} />
           </Row>
           <Row>
-            <Route path="/" exact component={JobList} />
+            <Route path="/" exact render={() => <JobList query={query} />} />
             <Route path="/company-detail" exact component={CompanyDetail} />
           </Row>
         </Container>
