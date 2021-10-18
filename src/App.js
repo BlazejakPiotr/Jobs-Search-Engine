@@ -7,7 +7,7 @@ import JobList from "./Components/JobList";
 import CompanyDetail from "./Components/CompanyDetail";
 
 function App() {
-  const [query, setQuery] = useState([]);
+  const [query, setQuery] = useState({ data: [] });
 
   return (
     <div className="App">
@@ -25,7 +25,11 @@ function App() {
           </Row>
           <Row>
             <Route path="/" exact render={() => <JobList query={query} />} />
-            <Route path="/company-detail" exact component={CompanyDetail} />
+            <Route
+              path="/company-detail/:company"
+              exact
+              component={CompanyDetail}
+            />
           </Row>
         </Container>
       </Router>
