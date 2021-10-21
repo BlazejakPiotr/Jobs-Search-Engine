@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
+import FavoritesIndicator from "./FavoritesIndicator";
 import JobList from "./JobList";
+import { CounterComponent } from "./Playground/CounterComponent";
 
 export default function Home({ data, setData, query, loadingData, isLoading }) {
   useEffect(() => {
@@ -30,9 +32,13 @@ export default function Home({ data, setData, query, loadingData, isLoading }) {
         </div>
       ) : (
         <div>
-          <h6 className="my-3">
-            Results for {query.query}({data.data.length})
-          </h6>
+          <div className="d-flex justify-content-between align-items-center">
+            <h6 className="my-3">
+              Results for {query.query}({data.data.length})
+            </h6>
+            {/* <CounterComponent /> */}
+            <FavoritesIndicator />
+          </div>
           <ul>
             {data.data.map((job) => {
               return <JobList job={job} key={job._id} />;

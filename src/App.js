@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Searchbar from "./Components/Searchbar";
 import Home from "./Components/Home";
 import CompanyDetail from "./Components/CompanyDetail";
+import Favorite from "./Components/Favorite";
 
 function App() {
   const [query, setQuery] = useState({
@@ -66,6 +67,7 @@ function App() {
                 loadingData={loadingData}
                 isLoading={isLoading}
               />
+              <Route path="/favorites" exact component={Favorite} />
             </Col>
           </Row>
         </Container>

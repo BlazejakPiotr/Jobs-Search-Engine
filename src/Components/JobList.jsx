@@ -7,20 +7,38 @@ import {
   CaretUpFill,
   FolderFill,
   CurrencyExchange,
+  Star,
 } from "react-bootstrap-icons";
 import { parseISO, format } from "date-fns";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import parse from "html-react-parser";
 
-export default function JobList({ job }) {
+function JobList({ job }) {
   const [selectedOffer, setSelectedOffer] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <li className="my-3">
-      <Row>
+      <Row className="d-flex justify-content-between">
         <Col>
           <h4>{job.title}</h4>
+        </Col>
+        <Col className="d-flex justify-content-end">
+          <button
+            onClick={() =>
+              dispatch({ type: "ADD_JOB_TO_FAVORITE", payload: job })
+            }
+          >
+            <p className="d-flex align-items-center">
+              Add offer to favorite <Star />
+            </p>
+          </button>
+        </Col>
+      </Row>
+      <Row className="d-flex justify-content-between">
+        <Col>
           <p>
             <Link to={`/company-detail/${job.company_name}`}>
               {job.company_name}
@@ -28,13 +46,10 @@ export default function JobList({ job }) {
           </p>
         </Col>
         <Col className="d-flex justify-content-end">
-          <small className="justify-content-end">
-            Published:
-            {format(parseISO(job.publication_date), " dd MMMM yyyy")}
-          </small>
+          Published:
+          {format(parseISO(job.publication_date), " dd MMMM yyyy")}
         </Col>
       </Row>
-
       <Row>
         <Col>
           <Row>
@@ -48,7 +63,7 @@ export default function JobList({ job }) {
             <Col>
               <div>
                 <GeoFill />
-                <small> Location:</small>{" "}
+                <small> Location:</small>
                 <p>{job.candidate_required_location}</p>
               </div>
             </Col>
@@ -90,3 +105,5 @@ export default function JobList({ job }) {
     </li>
   );
 }
+
+export default JobList;
