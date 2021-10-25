@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import mainReducer from "../reducers";
 import { persistStore, persistReducer } from "redux-persist";
 import localStorage from "redux-persist/lib/storage";
+import { encryptTransform } from "redux-persist-transform-encrypt";
 
 export const initialState = {
   favorites: {
@@ -18,6 +19,11 @@ export const initialState = {
 const persistConfig = {
   key: "root",
   storage: localStorage,
+  transforms: [
+    encryptTransform({
+      secretKey: process.env.REACT_APP_SECRET_KEY,
+    }),
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, mainReducer);
