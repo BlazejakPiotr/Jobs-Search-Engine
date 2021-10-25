@@ -1,19 +1,20 @@
 import { withRouter } from "react-router-dom";
-import { Star, StarFill } from "react-bootstrap-icons";
+import { StarFill } from "react-bootstrap-icons";
 import { connect } from "react-redux";
+import { Button } from "react-bootstrap";
 
 const mapStateToProps = (state) => state;
 
 const FavoritesIndicator = ({ history, favorites }) => (
   <div>
-    <button
-      className="d-flex align-items-center"
+    <Button
+      variant="dark"
+      className="d-flex align-items-center favorite-btn"
       onClick={() => history.push("/favorites")}
     >
-      Favorite offers:
-      {favorites.likes.length}
-      <StarFill />
-    </button>
+      Favorite offers: {favorites.likes.length}{" "}
+      <StarFill style={{ marginLeft: "5px" }} />
+    </Button>
   </div>
 );
 

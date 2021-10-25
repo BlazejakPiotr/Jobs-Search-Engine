@@ -11,6 +11,17 @@ const mainReducer = (state = initialState, action) => {
         },
       };
     }
+    case "REMOVE_JOB_FROM_FAVORITE": {
+      return {
+        ...state,
+        favorites: {
+          ...state.favorites,
+          likes: state.favorites.likes.filter(
+            (like) => like._id !== action.payload._id
+          ),
+        },
+      };
+    }
     case "FETCH_JOBS": {
       return {
         ...state,

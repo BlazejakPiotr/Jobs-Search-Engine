@@ -8,16 +8,29 @@ import {
   FolderFill,
   CurrencyExchange,
   Star,
+  StarFill,
 } from "react-bootstrap-icons";
 import { parseISO, format } from "date-fns";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import parse from "html-react-parser";
+import { useSelector } from "react-redux";
 
 function JobList({ job }) {
   const [selectedOffer, setSelectedOffer] = useState(false);
   const dispatch = useDispatch();
+  const isLiked = useSelector((state) =>
+    state.favorites.likes.find((offer) => offer._id === job._id)
+  );
+
+  const handleLikeButton = () => {
+    if (isLiked) {
+      dispatch({ type: "REMOVE_JOB_FROM_FAVORITE", payload: job });
+    } else {
+      dispatch({ type: "ADD_JOB_TO_FAVORITE", payload: job });
+    }
+  };
 
   return (
     <li className="my-3">
@@ -26,15 +39,23 @@ function JobList({ job }) {
           <h4>{job.title}</h4>
         </Col>
         <Col className="d-flex justify-content-end">
-          <button
-            onClick={() =>
-              dispatch({ type: "ADD_JOB_TO_FAVORITE", payload: job })
-            }
-          >
-            <p className="d-flex align-items-center">
-              Add offer to favorite <Star />
-            </p>
-          </button>
+          {isLiked ? (
+            <Button
+              variant="dark"
+              onClick={() => handleLikeButton()}
+              className="d-flex align-items-center"
+            >
+              Remove from favorite <StarFill style={{ marginLeft: "5px" }} />
+            </Button>
+          ) : (
+            <Button
+              variant="outline-dark"
+              onClick={() => handleLikeButton()}
+              className="d-flex align-items-center"
+            >
+              Add to favorite <Star style={{ marginLeft: "5px" }} />
+            </Button>
+          )}
         </Col>
       </Row>
       <Row className="d-flex justify-content-between">
