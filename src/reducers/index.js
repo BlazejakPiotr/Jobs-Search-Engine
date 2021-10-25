@@ -11,6 +11,24 @@ const mainReducer = (state = initialState, action) => {
         },
       };
     }
+    case "FETCH_JOBS": {
+      return {
+        ...state,
+        data: {
+          data: [...state.data.data, ...action.payload],
+          isLoading: false,
+        },
+      };
+    }
+    case "FETCH_ERROR": {
+      return {
+        ...state,
+        data: {
+          isLoading: false,
+          isError: action.payload,
+        },
+      };
+    }
     default:
       return state;
   }
